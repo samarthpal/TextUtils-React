@@ -6,19 +6,29 @@ export default function TextForm(props) {
     // console.log("on clicked" + text);
     let newText = text.toUpperCase();
     setText(newText);
+    if (newText.length !== 0) {
+      props.showAlert("Converted to uppercase", "success");
+    }
   };
   const handleLoClick = () => {
     // console.log("on clicked" + text);
     let newText = text.toLowerCase();
     setText(newText);
+    if (newText.length !== 0) {
+      props.showAlert("Converted to lowercase", "success");
+    }
   };
   const handleClearClick = () => {
     // console.log("on clicked" + text);
-    let newText = "";
-    setText(newText);
+    if (text.length !== 0) {
+      let newText = "";
+      setText(newText);
+      setparaText("0");
+      props.showAlert("Text has been Cleared", "success");
+    }
   };
   const handleCapitaliseClick = (event) => {
-    let newText = text.split(" ");
+    let newText = text.split(/[ ]+/);
     if (text.length !== 0) {
       for (let i = 0; i < newText.length; i++) {
         let word = newText[i];
@@ -27,6 +37,7 @@ export default function TextForm(props) {
       }
       newText = newText.join(" ");
       setText(newText);
+      props.showAlert("Converted to capitalize", "success");
     }
   };
   const handleOnChange = (event) => {
@@ -34,9 +45,25 @@ export default function TextForm(props) {
     setText(event.target.value);
     if (event.target.value.length !== 0) {
       let newparaText = event.target.value.trim();
-      setparaText(newparaText.split(" ").length);
+      let nextlines = newparaText.split("\n");
+      setparaText(newparaText.split(/[ ]+/).length + nextlines.length - 1);
     } else {
       setparaText("0");
+    }
+  };
+  const handleCopy = () => {
+    if (text.length !== 0) {
+      var gettext = document.getElementById("myBox");
+      gettext.select();
+      navigator.clipboard.writeText(gettext.value);
+      props.showAlert("Copied to Clipboard", "success");
+    }
+  };
+  const handleExtraSpaces = () => {
+    if (text.length !== 0) {
+      let newText = text.split(/[ ]+/);
+      setText(newText.join(" "));
+      props.showAlert("Extra spaces have been removed", "success");
     }
   };
   const [text, setText] = useState(""); // text is var and setText is function ////hooks
@@ -46,12 +73,22 @@ export default function TextForm(props) {
   return (
     <>
       <div className="container">
-        <h1>{props.heading}</h1>
+        <h1
+          style={{
+            color: props.mode === "dark" ? "white" : "black",
+          }}
+        >
+          {props.heading}
+        </h1>
         <div className="mb-3">
           <textarea
             className="form-control"
             value={text}
             onChange={handleOnChange}
+            style={{
+              backgroundColor: props.mode === "light" ? "white" : "#212529",
+              color: props.mode === "dark" ? "white" : "black",
+            }}
             id="myBox"
             rows="8"
           ></textarea>
@@ -71,15 +108,49 @@ export default function TextForm(props) {
         >
           Capitalise word
         </button>
+        <button className="btn btn-primary mx-2" onClick={handleCopy}>
+          Copy Text
+        </button>
+        <button className="btn btn-primary mx-2" onClick={handleExtraSpaces}>
+          Remove Extra Spaces
+        </button>
       </div>
       <div className="container my-3">
-        <h2>Your Text Summary</h2>
-        <p>
+        <h2
+          style={{
+            color: props.mode === "dark" ? "white" : "black",
+          }}
+        >
+          Your Text Summary
+        </h2>
+        <p
+          style={{
+            color: props.mode === "dark" ? "white" : "black",
+          }}
+        >
           {paraText} words, {text.length} characters
         </p>
-        <p>{0.008 * paraText} minutes to read</p>
-        <h2>Preview</h2>
-        <p>{text}</p>
+        <p
+          style={{
+            color: props.mode === "dark" ? "white" : "black",
+          }}
+        >
+          {0.008 * paraText} minutes to read
+        </p>
+        <h2
+          style={{
+            color: props.mode === "dark" ? "white" : "black",
+          }}
+        >
+          Preview
+        </h2>
+        <p
+          style={{
+            color: props.mode === "dark" ? "white" : "black",
+          }}
+        >
+          {text.length > 0 ? text : "Enter Your Text Above in Box"}
+        </p>
       </div>
     </>
   );
