@@ -1,30 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function About() {
-  const [myStyle, setmyStyle] = useState({
-    color: "black",
-    backgroundColor: "white",
-    border: "2px solid white",
-  });
-  const [btnText, setbtnText] = useState("Enable Dark Mode");
-  const toggleStyle = () => {
-    if (myStyle.color === "black") {
-      setmyStyle({
-        color: "white",
-        backgroundColor: "black",
-      });
-      setbtnText("Enable Light Mode");
-    } else {
-      setmyStyle({
-        color: "black",
-        backgroundColor: "white",
-      });
-      setbtnText("Enable Dark Mode");
-    }
+export default function About(props) {
+  // const [myStyle, setmyStyle] = useState({
+  //   color: "black",
+  //   backgroundColor: "white",
+  //   border: "2px solid white",
+  // });
+  let myStyle = {
+    color: props.mode === "dark" ? "white" : "#042743",
+    backgroundColor: props.mode === "dark" ? "rgb(36 74 104)" : "white",
+    // border: "2px solid",
+    // borderColor: props.mode === "dark" ? "white" : "#042743",
   };
+
   return (
-    <div className="container" style={myStyle}>
-      <h1 className="my-3">About Us</h1>
+    <div className="container">
+      <h1
+        className="my-3"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
+        About Us
+      </h1>
       <div className="accordion" id="accordionExample" style={myStyle}>
         <div className="accordion-item" style={myStyle}>
           <h2 className="accordion-header" id="headingOne">
@@ -35,9 +31,12 @@ export default function About() {
               data-bs-target="#collapseOne"
               aria-expanded="true"
               aria-controls="collapseOne"
-              style={myStyle}
+              style={{
+                backgroundColor: props.mode === "dark" ? "#042743" : "white",
+                color: myStyle.color,
+              }}
             >
-              Accordion Item #1
+              <strong> Analyze Your Text</strong>
             </button>
           </h2>
           <div
@@ -47,14 +46,10 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body" style={myStyle}>
-              <strong>This is the first item's accordion body.</strong> It is
-              shown by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora
+              suscipit soluta dolor, hic natus ut nemo repellat incidunt sunt
+              nostrum architecto reiciendis et aperiam illum repudiandae
+              consequuntur saepe, sit quibusdam!
             </div>
           </div>
         </div>
@@ -67,9 +62,12 @@ export default function About() {
               data-bs-target="#collapseTwo"
               aria-expanded="false"
               aria-controls="collapseTwo"
-              style={myStyle}
+              style={{
+                backgroundColor: props.mode === "dark" ? "#042743" : "white",
+                color: myStyle.color,
+              }}
             >
-              Accordion Item #2
+              <strong>Free to use</strong>
             </button>
           </h2>
           <div
@@ -79,14 +77,10 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body" style={myStyle}>
-              <strong>This is the second item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum
+              velit magnam deserunt tempore quibusdam! Ducimus est rerum
+              voluptates, ut aliquam ipsa assumenda illum dolorem, hic fugiat
+              soluta quaerat recusandae ipsam?
             </div>
           </div>
         </div>
@@ -99,9 +93,12 @@ export default function About() {
               data-bs-target="#collapseThree"
               aria-expanded="false"
               aria-controls="collapseThree"
-              style={myStyle}
+              style={{
+                backgroundColor: props.mode === "dark" ? "#042743" : "white",
+                color: myStyle.color,
+              }}
             >
-              Accordion Item #3
+              <strong>Browser Compatible</strong>
             </button>
           </h2>
           <div
@@ -111,22 +108,13 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body" style={myStyle}>
-              <strong>This is the third item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt
+              adipisci voluptate maiores id dolorum consequuntur debitis eaque
+              beatae consectetur mollitia dolor quo facilis sapiente aperiam rem
+              similique, itaque inventore? Ducimus?
             </div>
           </div>
         </div>
-      </div>
-      <div className="container my-3 py-3">
-        <button onClick={toggleStyle} type="button" className="btn btn-primary">
-          {btnText}
-        </button>
       </div>
     </div>
   );

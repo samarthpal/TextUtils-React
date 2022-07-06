@@ -23,7 +23,7 @@ export default function TextForm(props) {
     if (text.length !== 0) {
       let newText = "";
       setText(newText);
-      setparaText("0");
+      // setparaText("0");
       props.showAlert("Text has been Cleared", "success");
     }
   };
@@ -43,19 +43,20 @@ export default function TextForm(props) {
   const handleOnChange = (event) => {
     // console.log("on change");
     setText(event.target.value);
-    if (event.target.value.length !== 0) {
-      let newparaText = event.target.value.trim();
-      let nextlines = newparaText.split("\n");
-      setparaText(newparaText.split(/[ ]+/).length + nextlines.length - 1);
-    } else {
-      setparaText("0");
-    }
+    // if (event.target.value.length !== 0) {
+    //   let newparaText = event.target.value.trim();
+    //   let nextlines = newparaText.split("\n");
+    //   setparaText(newparaText.split(/[ ]+/).length + nextlines.length - 1);
+    // } else {
+    //   setparaText("0");
+    // }
   };
   const handleCopy = () => {
     if (text.length !== 0) {
       var gettext = document.getElementById("myBox");
       gettext.select();
       navigator.clipboard.writeText(gettext.value);
+      document.getSelection().removeAllRanges();
       props.showAlert("Copied to Clipboard", "success");
     }
   };
@@ -67,7 +68,7 @@ export default function TextForm(props) {
     }
   };
   const [text, setText] = useState(""); // text is var and setText is function ////hooks
-  const [paraText, setparaText] = useState("0");
+  // const [paraText, setparaText] = useState("0");
   //   text = "new text"; // Wrong way to change the state
   //   setText ("new text"); // Correct way to change the state
   return (
@@ -77,6 +78,7 @@ export default function TextForm(props) {
           style={{
             color: props.mode === "dark" ? "white" : "black",
           }}
+          className="mb-2"
         >
           {props.heading}
         </h1>
@@ -86,32 +88,54 @@ export default function TextForm(props) {
             value={text}
             onChange={handleOnChange}
             style={{
-              backgroundColor: props.mode === "light" ? "white" : "#212529",
+              backgroundColor:
+                props.mode === "light" ? "white" : "rgb(36 74 104)",
               color: props.mode === "dark" ? "white" : "black",
             }}
             id="myBox"
             rows="8"
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUpClick}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-2"
+          onClick={handleUpClick}
+        >
           Convert to Uppercase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleLoClick}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-2"
+          onClick={handleLoClick}
+        >
           Convert to Lowercase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleClearClick}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-2"
+          onClick={handleClearClick}
+        >
           Clear Text
         </button>
         <button
+          disabled={text.length === 0}
           className="btn btn-primary mx-2"
           onClick={handleCapitaliseClick}
         >
           Capitalise word
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleCopy}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-2"
+          onClick={handleCopy}
+        >
           Copy Text
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleExtraSpaces}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-2"
+          onClick={handleExtraSpaces}
+        >
           Remove Extra Spaces
         </button>
       </div>
@@ -128,14 +152,23 @@ export default function TextForm(props) {
             color: props.mode === "dark" ? "white" : "black",
           }}
         >
-          {paraText} words, {text.length} characters
+          {
+            text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length
+          }{" "}
+          words, {text.length} characters
         </p>
         <p
           style={{
             color: props.mode === "dark" ? "white" : "black",
           }}
         >
-          {0.008 * paraText} minutes to read
+          {0.008 *
+            text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length}{" "}
+          minutes to read
         </p>
         <h2
           style={{
@@ -149,7 +182,7 @@ export default function TextForm(props) {
             color: props.mode === "dark" ? "white" : "black",
           }}
         >
-          {text.length > 0 ? text : "Enter Your Text Above in Box"}
+          {text.length > 0 ? text : "Nothing to preview here!"}
         </p>
       </div>
     </>
