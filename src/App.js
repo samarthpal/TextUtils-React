@@ -1,11 +1,11 @@
 // import logo from "./logo.svg";
 import { useState } from "react";
 import "./App.css";
-// import About from "./components/About";
+import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -38,19 +38,19 @@ function App() {
   };
   return (
     <>
-      {/* <Router> */}
-      <Navbar
-        title="TextUtils"
-        aboutText="About"
-        mode={mode}
-        toggleMode={toggleMode}
-      />
-      <Alert alert={alert} />
-      <div className="container my-3">
-        {/* <Routes> */}
-        {/* alternate to Swtich in react-dom-native from v6 */}
-        {/* <Route path="/about" element={<About mode={mode} />} /> */}
-        {/* <Route
+      <Router>
+        <Navbar
+          title="TextUtils"
+          aboutText="About"
+          mode={mode}
+          toggleMode={toggleMode}
+        />
+        <Alert alert={alert} />
+        <div className="container my-3">
+          <Routes>
+            {/* alternate to Swtich in react-dom-native from v6 */}
+            <Route path="/about" element={<About mode={mode} />} />
+            <Route
               path="/"
               element={
                 <TextForm
@@ -60,16 +60,16 @@ function App() {
                   showAlert={showAlert}
                 />
               }
-            /> */}
-        <TextForm
+            />
+            {/* <TextForm
           heading="Enter the text to analyze"
           mode={mode}
           toggleMode={toggleMode}
           showAlert={showAlert}
-        />
-        {/* </Routes> */}
-      </div>
-      {/* </Router> */}
+        /> */}
+          </Routes>
+        </div>
+      </Router>
     </>
   );
 }
