@@ -53,10 +53,11 @@ export default function TextForm(props) {
   };
   const handleCopy = () => {
     if (text.length !== 0) {
-      var gettext = document.getElementById("myBox");
-      gettext.select();
-      navigator.clipboard.writeText(gettext.value);
-      document.getSelection().removeAllRanges();
+      // var gettext = document.getElementById("myBox");
+      // gettext.select();
+      // navigator.clipboard.writeText(gettext.value);
+      navigator.clipboard.writeText(text);
+      // document.getSelection().removeAllRanges();
       props.showAlert("Copied to Clipboard", "success");
     }
   };
@@ -153,11 +154,11 @@ export default function TextForm(props) {
           }}
         >
           {
-            text.split(" ").filter((element) => {
+            text.split(/\s+/).filter((element) => {
               return element.length !== 0;
             }).length
           }{" "}
-          words, {text.length} characters
+          words, {text.replace(/ /g, "").length} characters
         </p>
         <p
           style={{
@@ -165,7 +166,7 @@ export default function TextForm(props) {
           }}
         >
           {0.008 *
-            text.split(" ").filter((element) => {
+            text.split(/\s+/).filter((element) => {
               return element.length !== 0;
             }).length}{" "}
           minutes to read
