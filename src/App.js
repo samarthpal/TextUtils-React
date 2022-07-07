@@ -17,7 +17,20 @@ function App() {
       setAlert(null);
     }, 1500);
   };
+
+  // const removeBodyClassses = () => {
+  //   document.body.classList.remove("bg-light");
+  //   document.body.classList.remove("bg-dark");
+  //   document.body.classList.remove("bg-warning");
+  //   document.body.classList.remove("bg-success");
+  //   document.body.classList.remove("bg-danger");
+  // };
+
   const toggleMode = () => {
+    //cls variable
+    // console.log(cls);
+    // removeBodyClassses();
+    // document.body.classList.add("bg-" + cls);
     if (mode === "light") {
       setMode("dark");
       document.body.style.backgroundColor = "#042743";
